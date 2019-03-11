@@ -47,3 +47,21 @@ $("#gifs").on("click", "img", function(){
         $(this).attr("data-animated", "still");
     }
 })
+
+$("#submit-button").click(function(){
+    let newAnimal = $("#animal-input").val();
+    console.log($("#animal-input").val());
+    let button = $("<button>").text(newAnimal);
+    $("#buttons").append(button);
+    animals.push(newAnimal);
+    $("#animal-input").val("");
+    updateButtons();
+})
+
+function updateButtons(){
+    $("#buttons").empty();
+    for(let i=0; i<animals.length; i++){
+        let button = $("<button>").text(animals[i]);
+        $("#buttons").append(button);
+    }
+}
