@@ -5,7 +5,7 @@ for(let i=0; i<animals.length; i++){
     $("#buttons").append(button);
 }
 
-$("button").click(function(){
+$("#buttons").on("click", "button", function(){
     $.ajax({
         url: "https://api.giphy.com/v1/gifs/search?api_key=4GmNEhtk6If81wENyRfYSDsdsnR8DHzZ&q="+ $(this).text() +"&limit=10&offset=0&rating=PG-13&lang=en",
         method: "GET"
@@ -25,7 +25,6 @@ $("button").click(function(){
             img.attr("animated-url", animatedUrl);
             cardText.text("Rating: " + response.data[i].rating);
             $("#gifs").prepend(card);
-            console.log($(card));
             img.attr("data-animated","still");
         }
     })
@@ -49,13 +48,14 @@ $("#gifs").on("click", "img", function(){
 })
 
 $("#submit-button").click(function(){
-    let newAnimal = $("#animal-input").val();
-    console.log($("#animal-input").val());
-    let button = $("<button>").text(newAnimal);
-    $("#buttons").append(button);
-    animals.push(newAnimal);
-    $("#animal-input").val("");
-    updateButtons();
+    if($("#animal-input").val()!=""){
+        let newAnimal = $("#animal-input").val().toLowerCase();
+        let button = $("<button>").text(newAnimal);
+        $("#buttons").append(button);
+        animals.push(newAnimal);
+        $("#animal-input").val("");
+        updateButtons();
+    }
 })
 
 function updateButtons(){
